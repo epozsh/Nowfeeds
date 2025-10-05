@@ -8,5 +8,6 @@
 	public class ExternalServices
 	{
 		public OpenWeatherMapConfiguration OpenWeatherMap { get; set; }
+		public TwitterConfiguration Twitter { get; set; }
 	}
 }

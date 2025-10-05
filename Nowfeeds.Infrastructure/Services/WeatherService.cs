@@ -7,9 +7,9 @@ namespace Nowfeeds.Infrastructure.Services
 {
 	public class WeatherService : IWeatherService
 	{
-		private readonly IOpenWeatherMap _openWeatherMap;
+		private readonly IOpenWeatherMapService _openWeatherMap;
 
-		public WeatherService(IOpenWeatherMap openWeatherMap)
+		public WeatherService(IOpenWeatherMapService openWeatherMap)
 		{
 			_openWeatherMap = openWeatherMap;
 		}

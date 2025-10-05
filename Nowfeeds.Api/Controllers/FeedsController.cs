@@ -15,7 +15,7 @@ namespace Nowfeeds.Api.Controllers
 		[HttpGet]
 		public async Task<LocalFeedsApiModel> GetLocalFeeds([FromQuery] string city, CancellationToken cancellationToken)
 		{
-			GetLocalFeedsResult result = await _mediator.Send(new GetLocalFeedsQuery(city, string.Empty), cancellationToken);
+			GetLocalFeedsResult result = await _mediator.Send(new GetLocalFeedsQuery(city), cancellationToken);
 
 			var response = _mapper.Map<LocalFeedsApiModel>(result);
 

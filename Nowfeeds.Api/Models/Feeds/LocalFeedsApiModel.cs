@@ -3,6 +3,7 @@
 	public class LocalFeedsApiModel : ApiResponseModel
 	{
 		public WeatherApiModel Weather { get; set; }
+		public SocialFeedApiModel Social { get; set; }
 	}
 
 	public class WeatherApiModel
@@ -11,5 +12,10 @@
 		public double Temperature { get; set; }
 		public int Humidity { get; set; }
 		public double WindSpeed { get; set; }
+	}
+
+	public class SocialFeedApiModel
+	{
+		public string[] Posts { get; set; }
 	}
 }

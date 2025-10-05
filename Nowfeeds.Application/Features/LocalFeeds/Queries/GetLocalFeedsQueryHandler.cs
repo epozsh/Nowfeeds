@@ -20,12 +20,12 @@ namespace Nowfeeds.Application.Features.LocalFeeds.Queries
 		public async Task<GetLocalFeedsResult> Handle(GetLocalFeedsQuery request, CancellationToken cancellationToken)
 		{
 			Weather weather = await _weatherService.GetWeatherAsync(request.City, cancellationToken);
-			//var news = await _newsFeedService.GetNewsFeedsAsync(request.Location, request.Category);
-			//var social = await _socialFeedService.GetSocialFeedsAsync(request.Location, request.Category);
+			SocialFeed social = await _socialFeedService.GetSocialFeedsAsync(request.City, cancellationToken);
 
 			return new GetLocalFeedsResult()
 			{
-				Weather = weather
+				Weather = weather,
+				SocialFeed = social,
 			};
 		}
 	}

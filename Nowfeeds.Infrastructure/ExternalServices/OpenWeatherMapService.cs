@@ -6,11 +6,11 @@ using System.Text.Json;
 
 namespace Nowfeeds.Infrastructure.ExternalServices
 {
-	public class OpenWeatherMap : IOpenWeatherMap
+	public class OpenWeatherMapService : IOpenWeatherMapService
 	{
 		private readonly HttpClient _httpClient;
 		private readonly OpenWeatherMapConfiguration _openWeatherMapConfiguration;
-		public OpenWeatherMap(HttpClient httpClient, IOptionsSnapshot<InfrastructureConfiguration> configuration)
+		public OpenWeatherMapService(HttpClient httpClient, IOptionsSnapshot<InfrastructureConfiguration> configuration)
 		{
 			_httpClient = httpClient;
 			_openWeatherMapConfiguration = configuration.Value.ExternalServices.OpenWeatherMap;

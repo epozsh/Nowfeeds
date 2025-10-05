@@ -1,7 +1,9 @@
-﻿namespace Nowfeeds.Infrastructure.Interfaces
+﻿using Nowfeeds.Infrastructure.ExternalServices.Models;
+
+namespace Nowfeeds.Infrastructure.Interfaces
 {
 	public interface ITwitterService
 	{
-		Task<string> SearchTweetsAsync(string location, string category);
+		Task<RecentTweetsApiResponse> SearchRecentTweetsAsync(RecentTweetsRequest recentTweetsReques, CancellationToken cancellationToken);
 	}
 }

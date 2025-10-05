@@ -2,7 +2,7 @@
 
 namespace Nowfeeds.Infrastructure.Interfaces
 {
-	public interface IOpenWeatherMap
+	public interface IOpenWeatherMapService
 	{
 		public Task<OpenWeatherMapCurrentApiResponse> GetCurrentWeather(string city, CancellationToken cancellationTokens);
 	}
