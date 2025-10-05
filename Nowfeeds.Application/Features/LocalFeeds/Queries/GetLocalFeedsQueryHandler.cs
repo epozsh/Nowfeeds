@@ -1,9 +1,10 @@
 ﻿using MediatR;
 using Nowfeeds.Application.Interfaces;
+using Nowfeeds.Domain.Values;
 
-namespace Nowfeeds.Application.Features.Weather.Queries
+namespace Nowfeeds.Application.Features.LocalFeeds.Queries
 {
-	public class GetLocalFeedsQueryHandler : IRequestHandler<GetLocalFeedsQuery, string>
+	public class GetLocalFeedsQueryHandler : IRequestHandler<GetLocalFeedsQuery, GetLocalFeedsResult>
 	{
 		private readonly IWeatherService _weatherService;
 		private readonly INewsFeedService _newsFeedService;
@@ -16,9 +17,16 @@ namespace Nowfeeds.Application.Features.Weather.Queries
 			_socialFeedService = socialFeedService;
 		}
 
-		public async Task<string> Handle(GetLocalFeedsQuery request, CancellationToken cancellationToken)
+		public async Task<GetLocalFeedsResult> Handle(GetLocalFeedsQuery request, CancellationToken cancellationToken)
 		{
-			return string.Empty;
+			Weather weather = await _weatherService.GetWeatherAsync(request.City, cancellationToken);
+			//var news = await _newsFeedService.GetNewsFeedsAsync(request.Location, request.Category);
+			//var social = await _socialFeedService.GetSocialFeedsAsync(request.Location, request.Category);
+
+			return new GetLocalFeedsResult()
+			{
+				Weather = weather
+			};
 		}
 	}
 }

@@ -1,10 +1,16 @@
 ﻿using MediatR;
 
-namespace Nowfeeds.Application.Features.Weather.Queries
+namespace Nowfeeds.Application.Features.LocalFeeds.Queries
 {
-	public class GetLocalFeedsQuery : IRequest<string>
+	public class GetLocalFeedsQuery : IRequest<GetLocalFeedsResult>
 	{
-		public string Location { get; set; }
-		public string Category { get; set; }
+		public GetLocalFeedsQuery(string city, string category)
+		{
+			City = city;
+			Category = category;
+		}
+
+		public string City { get; }
+		public string Category { get; }
 	}
 }

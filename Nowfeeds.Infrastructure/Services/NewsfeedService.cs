@@ -2,7 +2,7 @@
 
 namespace Nowfeeds.Infrastructure.Services
 {
-	public class NewsfeedService : INewsFeedService
+	public class NewsFeedService : INewsFeedService
 	{
 		public Task<string> GetNewsFeedsAsync(string location, string category)
 		{
