@@ -7,7 +7,6 @@ namespace Nowfeeds.Application.Features.LocalFeeds.Queries
 		public GetLocalFeedsQueryValidation()
 		{
 			RuleFor(b => b.City).NotEmpty().WithMessage("City is required");
-			RuleFor(b => b.Category).NotEmpty().WithMessage("Category is required");
 		}
 	}
 }
