@@ -20,7 +20,6 @@ namespace Nowfeeds.Infrastructure.Services
 		{
 			var utcNow = DateTime.UtcNow;
 
-
 			var twitterFeeds = await _cacheService.GetOrAddAsync(city, () => _twitterService.SearchRecentTweetsAsync(new RecentTweetsRequest()
 			{
 				Query = city,

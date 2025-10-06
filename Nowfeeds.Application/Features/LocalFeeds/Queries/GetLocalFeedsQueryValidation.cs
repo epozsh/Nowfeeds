@@ -6,7 +6,7 @@ namespace Nowfeeds.Application.Features.LocalFeeds.Queries
 	{
 		public GetLocalFeedsQueryValidation()
 		{
-			RuleFor(b => b.City).NotEmpty().WithMessage("City is required");
+			RuleFor(b => b.City.Length).GreaterThan(2).WithMessage("City name should have at least 3 characters");
 		}
 	}
 }

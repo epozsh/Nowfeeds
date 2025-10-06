@@ -13,7 +13,7 @@ namespace Nowfeeds.Api.Middlewares
 			_next = next;
 		}
 
-		public async Task Invoke(HttpContext context)
+		public async Task Invoke(HttpContext context, ILogger<ExceptionsMiddleware> logger)
 		{
 			try
 			{
@@ -35,6 +35,7 @@ namespace Nowfeeds.Api.Middlewares
 			}
 			catch (Exception ex)
 			{
+				logger.LogError(ex, "An unhandled exception occurred.");
 				context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
 			}
 		}
