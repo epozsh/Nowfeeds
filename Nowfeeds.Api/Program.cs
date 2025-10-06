@@ -16,6 +16,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddHttpClient();
+builder.Services.AddDistributedMemoryCache();
 
 builder.Host.UseSerilog((ctx, lc) => lc
 	.ReadFrom.Configuration(ctx.Configuration));

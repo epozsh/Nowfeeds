@@ -22,8 +22,13 @@ namespace Nowfeeds.Application.Features.LocalFeeds.Queries
 		{
 			_logger.LogInformation("Handling GetLocalFeedsQuery for city: {City}", request.City);
 
-			Weather weather = await _weatherService.GetWeatherAsync(request.City, cancellationToken);
-			SocialFeed social = await _socialFeedService.GetSocialFeedsAsync(request.City, cancellationToken);
+			Task<Weather> weatherTask = _weatherService.GetWeatherAsync(request.City, cancellationToken);
+			Task<SocialFeed> socialTask = _socialFeedService.GetSocialFeedsAsync(request.City, cancellationToken);
+
+			await Task.WhenAll(weatherTask, socialTask);
+
+			Weather weather = await weatherTask;
+			SocialFeed social = await socialTask;
 
 			return new GetLocalFeedsResult()
 			{

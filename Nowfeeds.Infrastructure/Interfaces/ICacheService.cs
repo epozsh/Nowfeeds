@@ -2,7 +2,8 @@
 {
 	public interface ICacheService
 	{
-		Task<T?> GetOrAddAsync<T>(string key, Func<Task<T>> valueFactory, TimeSpan? absoluteExpiration = null, CancellationToken cancellationToken = default);
-		void Remove(string key);
+		Task<T> GetAsync<T>(string key, CancellationToken cancellationToken);
+		Task AddAsync<T>(string key, T value, TimeSpan? absoluteExpiration = null, TimeSpan? slidaingExpiration = null, CancellationToken cancellationToken = default);
+		Task RemoveAsync(string key, CancellationToken cancellationToken);
 	}
 }

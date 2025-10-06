@@ -3,6 +3,7 @@
 	public class InfrastructureConfiguration
 	{
 		public ExternalServices ExternalServices { get; set; }
+		public CacheSettings CacheSettings { get; set; }
 	}
 
 	public class ExternalServices

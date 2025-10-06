@@ -1,9 +1,10 @@
 ﻿using Autofac;
-using Microsoft.Extensions.Caching.Memory;
 using Nowfeeds.Application.Interfaces;
 using Nowfeeds.Infrastructure.Cache;
+using Nowfeeds.Infrastructure.Decorators.ExternalServices;
 using Nowfeeds.Infrastructure.ExternalServices;
 using Nowfeeds.Infrastructure.Interfaces;
+using Nowfeeds.Infrastructure.Metrics;
 using Nowfeeds.Infrastructure.Services;
 
 namespace Nowfeeds.Infrastructure
@@ -20,17 +21,24 @@ namespace Nowfeeds.Infrastructure
 
 
 			// External Services
-			builder.RegisterType<OpenWeatherMapService>().As<IOpenWeatherMapService>().InstancePerLifetimeScope();
-			builder.RegisterType<TwitterService>().As<ITwitterService>().InstancePerLifetimeScope();
+			builder.RegisterType<OpenWeatherMapService>().As<IOpenWeatherMapService>().SingleInstance();
+			builder.RegisterType<TwitterService>().As<ITwitterService>().SingleInstance();
 
 			// Caching
-			builder.RegisterType<InMemoryCacheService>().As<ICacheService>().SingleInstance();
-			builder.Register(context => new MemoryCache(new MemoryCacheOptions())).As<IMemoryCache>().SingleInstance();
+			builder.RegisterType<CacheService>().As<ICacheService>().SingleInstance();
+
+			// Metrics
+			builder.RegisterType<MetricsRecorderService>().As<IMetricsRecorderService>().SingleInstance();
 
 			// Application Services
 			builder.RegisterType<WeatherService>().As<IWeatherService>().InstancePerLifetimeScope();
 			builder.RegisterType<SocialFeedService>().As<ISocialFeedService>().InstancePerLifetimeScope();
 			builder.RegisterType<NewsFeedService>().As<INewsFeedService>().InstancePerLifetimeScope();
+			builder.RegisterType<MetricsService>().As<IMetricsService>().InstancePerLifetimeScope();
+
+			// Decorators
+			builder.RegisterDecorator(typeof(OpenWeatherMapServiceMetricsDecorator), typeof(IOpenWeatherMapService));
+			builder.RegisterDecorator(typeof(TwitterServiceMetricsDecorator), typeof(ITwitterService));
 		}
 	}
 }

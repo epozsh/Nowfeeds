@@ -25,16 +25,28 @@ namespace Nowfeeds.Infrastructure.Services
 			{
 				var utcNow = DateTime.UtcNow;
 
-				var twitterFeeds = await _cacheService.GetOrAddAsync(city, () => _twitterService.SearchRecentTweetsAsync(new RecentTweetsRequest()
+				RecentTweetsApiResponse cachedData = await _cacheService.GetAsync<RecentTweetsApiResponse>(city, cancellationToken);
+
+				if (cachedData != null)
+				{
+					return new SocialFeed
+					{
+						Posts = cachedData.Data?.Select(t => t.Text).ToArray() ?? Array.Empty<string>()
+					};
+				}
+
+				RecentTweetsApiResponse response = await _twitterService.SearchRecentTweetsAsync(new RecentTweetsRequest()
 				{
 					Query = city,
 					StartTime = utcNow,
 					EndTime = utcNow.AddHours(5)
-				}, cancellationToken), TimeSpan.FromMinutes(15), cancellationToken);
+				}, cancellationToken);
+
+				await _cacheService.AddAsync(city, response, TimeSpan.FromMinutes(15), null, cancellationToken);
 
 				return new SocialFeed
 				{
-					Posts = twitterFeeds.Data?.Select(t => t.Text).ToArray() ?? Array.Empty<string>()
+					Posts = response.Data?.Select(t => t.Text).ToArray() ?? Array.Empty<string>()
 				};
 			}
 			catch (Exception ex)

@@ -25,10 +25,8 @@ namespace Nowfeeds.Test.Infrastructure.Services
 			}
 			};
 
-			mockCacheService.Setup(x => x.GetOrAddAsync(
+			mockCacheService.Setup(x => x.GetAsync<RecentTweetsApiResponse>(
 				It.IsAny<string>(),
-				It.IsAny<Func<Task<RecentTweetsApiResponse>>>(),
-				It.IsAny<TimeSpan?>(),
 				It.IsAny<CancellationToken>()))
 				.ReturnsAsync(tweetsResponse);
 
