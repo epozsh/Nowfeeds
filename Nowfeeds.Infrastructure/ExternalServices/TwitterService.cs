@@ -18,7 +18,9 @@ namespace Nowfeeds.Infrastructure.ExternalServices
 
 		public async Task<RecentTweetsApiResponse> SearchRecentTweetsAsync(RecentTweetsRequest recentTweetsReques, CancellationToken cancellationToken)
 		{
-			string url = $"{_twitterConfiguration.BaseUrl}{_twitterConfiguration.RecentTweetsEndpoint}?query={recentTweetsReques.Query}&start_time={recentTweetsReques.StartTime.ToString("s")}&end_time={recentTweetsReques.EndTime.ToString("s")}&max_results=5&place.fields=full_name,country,geo,id,name,place_type&sort_order=relevancy";
+			string startTime = recentTweetsReques.StartTime.ToString("yyyy-MM-dd'T'HH:mm:ss.fff'Z'");
+			string endTime = recentTweetsReques.EndTime.ToString("yyyy-MM-dd'T'HH:mm:ss.fff'Z'");
+			string url = $"{_twitterConfiguration.BaseUrl}{_twitterConfiguration.RecentTweetsEndpoint}?query={recentTweetsReques.Query}&start_time={startTime}&end_time={endTime}&max_results=5&place.fields=full_name,country,geo,id,name,place_type&sort_order=relevancy";
 
 			using var request = new HttpRequestMessage(HttpMethod.Get, url);
 			request.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", _twitterConfiguration.Bearer);
