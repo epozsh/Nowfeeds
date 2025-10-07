@@ -19,10 +19,10 @@ namespace Nowfeeds.Infrastructure
 				return httpClientFactory.CreateClient();
 			}).As<HttpClient>();
 
-
 			// External Services
 			builder.RegisterType<OpenWeatherMapService>().As<IOpenWeatherMapService>().SingleInstance();
 			builder.RegisterType<TwitterService>().As<ITwitterService>().SingleInstance();
+			builder.RegisterType<WorldNewsApiService>().As<IWorldNewsApiService>().SingleInstance();
 
 			// Caching
 			builder.RegisterType<CacheService>().As<ICacheService>().SingleInstance();

@@ -4,6 +4,7 @@
 	{
 		public WeatherApiModel Weather { get; set; }
 		public SocialFeedApiModel Social { get; set; }
+		public NewsFeedApiModel News { get; set; }
 	}
 
 	public class WeatherApiModel
@@ -17,5 +18,10 @@
 	public class SocialFeedApiModel
 	{
 		public string[] Posts { get; set; }
+	}
+
+	public class NewsFeedApiModel
+	{
+		public string[] Articles { get; set; }
 	}
 }
