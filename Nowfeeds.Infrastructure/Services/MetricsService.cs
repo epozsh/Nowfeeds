@@ -18,7 +18,7 @@ namespace Nowfeeds.Infrastructure.Services
 
 		public async Task<string> GetMetrics(CancellationToken cancellationToken)
 		{
-			var metrics = await _metricsRecorderService.GetMetricsAsync([_cacheSettings.OpenWeatherMapKey, _cacheSettings.TwitterKey], cancellationToken);
+			var metrics = await _metricsRecorderService.GetMetricsAsync([_cacheSettings.OpenWeatherMapKey, _cacheSettings.TwitterKey, _cacheSettings.WorldNewsApiKey], cancellationToken);
 
 			var lines = metrics
 			   .Where(m => m != null)
