@@ -7,5 +7,6 @@ namespace Nowfeeds.Application.Features.LocalFeeds.Queries
 	{
 		public Weather Weather { get; set; }
 		public SocialFeed SocialFeed { get; set; }
+		public NewsFeed NewsFeed { get; set; }
 	}
 }

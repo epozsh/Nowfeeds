@@ -10,5 +10,6 @@
 	{
 		public OpenWeatherMapConfiguration OpenWeatherMap { get; set; }
 		public TwitterConfiguration Twitter { get; set; }
+		public WorldNewsApiConfiguration WorldNewsApi { get; set; }
 	}
 }

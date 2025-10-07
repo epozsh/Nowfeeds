@@ -18,10 +18,14 @@ namespace Nowfeeds.Api.Mapping
 
 			CreateMap<GetLocalFeedsResult, LocalFeedsApiModel>()
 				.ForMember(dest => dest.Success, opt => opt.MapFrom(src => !src.ErrorCodeStatus.HasValue))
-				.ForMember(dest => dest.Message, opt => opt.MapFrom(src => src.ErrorCodeStatus.HasValue ? src.ErrorCodeStatus.Value.GetDescription() : null));
+				.ForMember(dest => dest.Message, opt => opt.MapFrom(src => src.ErrorCodeStatus.HasValue ? src.ErrorCodeStatus.Value.GetDescription() : null))
+				.ForMember(dest => dest.Social, opt => opt.MapFrom(src => src.SocialFeed))
+				.ForMember(dest => dest.News, opt => opt.MapFrom(src => src.NewsFeed));
 
 			CreateMap<Weather, WeatherApiModel>();
 			CreateMap<SocialFeed, SocialFeedApiModel>();
+			CreateMap<NewsFeed, NewsFeedApiModel>();
+			CreateMap<Article, string>().ConvertUsing(a => a.Title + "\n" + a.Summary);
 		}
 	}
 }
