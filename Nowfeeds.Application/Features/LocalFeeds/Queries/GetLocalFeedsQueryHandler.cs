@@ -9,12 +9,14 @@ namespace Nowfeeds.Application.Features.LocalFeeds.Queries
 	{
 		private readonly IWeatherService _weatherService;
 		private readonly ISocialFeedService _socialFeedService;
+		private readonly INewsFeedService _newsFeedService;
 		private readonly ILogger<GetLocalFeedsQueryHandler> _logger;
 
-		public GetLocalFeedsQueryHandler(IWeatherService weatherService, ISocialFeedService socialFeedService, ILogger<GetLocalFeedsQueryHandler> logger)
+		public GetLocalFeedsQueryHandler(IWeatherService weatherService, ISocialFeedService socialFeedService, INewsFeedService newsFeedService, ILogger<GetLocalFeedsQueryHandler> logger)
 		{
 			_weatherService = weatherService;
 			_socialFeedService = socialFeedService;
+			_newsFeedService = newsFeedService;
 			_logger = logger;
 		}
 
@@ -24,16 +26,19 @@ namespace Nowfeeds.Application.Features.LocalFeeds.Queries
 
 			Task<Weather> weatherTask = _weatherService.GetWeatherAsync(request.City, cancellationToken);
 			Task<SocialFeed> socialTask = _socialFeedService.GetSocialFeedsAsync(request.City, cancellationToken);
+			Task<NewsFeed> newsTask = _newsFeedService.GetNewsFeedsAsync(request.City, cancellationToken);
 
-			await Task.WhenAll(weatherTask, socialTask);
+			await Task.WhenAll(weatherTask, socialTask, newsTask);
 
 			Weather weather = await weatherTask;
 			SocialFeed social = await socialTask;
+			NewsFeed news = await newsTask;
 
 			return new GetLocalFeedsResult()
 			{
 				Weather = weather,
 				SocialFeed = social,
+				NewsFeed = news
 			};
 		}
 	}

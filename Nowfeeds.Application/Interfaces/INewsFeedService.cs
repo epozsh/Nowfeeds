@@ -1,7 +1,9 @@
-﻿namespace Nowfeeds.Application.Interfaces
+﻿using Nowfeeds.Domain.Values;
+
+namespace Nowfeeds.Application.Interfaces
 {
 	public interface INewsFeedService
 	{
-		Task<string> GetNewsFeedsAsync(string location, string category);
+		Task<NewsFeed> GetNewsFeedsAsync(string city, CancellationToken cancellationToken);
 	}
 }
