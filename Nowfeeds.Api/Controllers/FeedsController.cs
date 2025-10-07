@@ -1,11 +1,13 @@
 ﻿using AutoMapper;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Nowfeeds.Api.Models.Feeds;
 using Nowfeeds.Application.Features.LocalFeeds.Queries;
 
 namespace Nowfeeds.Api.Controllers
 {
+	[Authorize]
 	public class FeedsController : ApiBaseController
 	{
 		public FeedsController(IMediator mediator, IMapper mapper) : base(mediator, mapper)
