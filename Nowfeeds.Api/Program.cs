@@ -7,6 +7,7 @@ using Nowfeeds.Api.Config;
 using Nowfeeds.Api.Middlewares;
 using Nowfeeds.Api.Services;
 using Nowfeeds.Application;
+using Nowfeeds.Application.Config;
 using Nowfeeds.Infrastructure;
 using Nowfeeds.Infrastructure.Config;
 using Serilog;
@@ -14,10 +15,14 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.Configure<ApiConfiguration>(builder.Configuration.GetSection("ApiConfiguration"));
+var apiConfigSection = builder.Configuration.GetSection("ApiConfiguration");
+var applicationConfigSection = builder.Configuration.GetSection("ApplicationConfiguration");
+
+builder.Services.Configure<ApiConfiguration>(apiConfigSection);
+builder.Services.Configure<ApplicationConfiguration>(applicationConfigSection);
 builder.Services.Configure<InfrastructureConfiguration>(builder.Configuration.GetSection("InfrastructureConfiguration"));
 
-var apiConfig = builder.Configuration.GetSection("ApiConfiguration").Get<ApiConfiguration>();
+var apiConfig = apiConfigSection.Get<ApiConfiguration>();
 var jwtConfig = apiConfig.Jwt;
 
 builder.Services.AddAuthentication(options =>
@@ -54,7 +59,7 @@ builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
 builder.Host.ConfigureContainer<ContainerBuilder>(containerBuilder =>
 {
 	containerBuilder.RegisterModule(new ApiModule());
-	containerBuilder.RegisterModule(new ApplicationModule());
+	containerBuilder.RegisterModule(new ApplicationModule(applicationConfigSection.Get<ApplicationConfiguration>()));
 	containerBuilder.RegisterModule(new InfrastructureModule());
 });
 

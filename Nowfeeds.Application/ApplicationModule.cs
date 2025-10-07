@@ -3,6 +3,7 @@ using FluentValidation;
 using MediatR;
 using MediatR.Extensions.Autofac.DependencyInjection;
 using MediatR.Extensions.Autofac.DependencyInjection.Builder;
+using Nowfeeds.Application.Config;
 using Nowfeeds.Application.Decorators;
 using Nowfeeds.Application.Features.LocalFeeds.Queries;
 using System.Reflection;
@@ -11,12 +12,18 @@ namespace Nowfeeds.Application
 {
 	public class ApplicationModule : Autofac.Module
 	{
+		private readonly string mediatrLicenseKey;
+		public ApplicationModule(ApplicationConfiguration applicationConfiguration)
+		{
+			mediatrLicenseKey = applicationConfiguration.MediatrLicenseKey;
+		}
+
 		protected override void Load(ContainerBuilder builder)
 		{
 			var thisAssembly = Assembly.GetExecutingAssembly();
 
 			var configuration = MediatRConfigurationBuilder
-			   .Create("testlicence", typeof(GetLocalFeedsQuery).Assembly)
+			   .Create(mediatrLicenseKey, typeof(GetLocalFeedsQuery).Assembly)
 			   .WithAllOpenGenericHandlerTypesRegistered()
 			   .Build();
 
