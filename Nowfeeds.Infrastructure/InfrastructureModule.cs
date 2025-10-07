@@ -39,6 +39,7 @@ namespace Nowfeeds.Infrastructure
 			// Decorators
 			builder.RegisterDecorator(typeof(OpenWeatherMapServiceMetricsDecorator), typeof(IOpenWeatherMapService));
 			builder.RegisterDecorator(typeof(TwitterServiceMetricsDecorator), typeof(ITwitterService));
+			builder.RegisterDecorator(typeof(WorldNewsApiServiceMetricsDecorator), typeof(IWorldNewsApiService));
 		}
 	}
 }
