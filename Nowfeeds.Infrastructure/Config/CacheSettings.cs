@@ -4,5 +4,6 @@
 	{
 		public string OpenWeatherMapKey { get; set; }
 		public string TwitterKey { get; set; }
+		public string WorldNewsApiKey { get; set; }
 	}
 }
